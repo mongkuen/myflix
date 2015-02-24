@@ -5,11 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+test_user = User.create(email: "test@test.com", full_name: "Bob Test", password: "password")
+test_user2 = User.create(email: "test2@test.com", full_name: "Bill Test", password: "password")
 
-Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg')
 
-Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/family_guy.jpg')
+mystery = Category.create(name: "Mystery")
+scifi = Category.create(name: "Sci-fi")
+comedy = Category.create(name: "Comedy")
 
-Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/futurama.jpg')
 
-Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg')
+Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category: mystery)
+
+Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/family_guy.jpg', category: comedy, created_at: 10.day.ago)
+
+Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/futurama.jpg', category: scifi)
+
+Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg', category: comedy)
