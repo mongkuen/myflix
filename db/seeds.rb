@@ -5,19 +5,30 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+#Users
 test_user = User.create(email: "test@test.com", full_name: "Bob Test", password: "password")
 test_user2 = User.create(email: "test2@test.com", full_name: "Bill Test", password: "password")
 
-
+#Categories
 mystery = Category.create(name: "Mystery")
 scifi = Category.create(name: "Sci-fi")
 comedy = Category.create(name: "Comedy")
 
+#Videos
+monk = Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category: mystery)
 
-Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category: mystery)
+family_guy = Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/family_guy.jpg', category: comedy, created_at: 10.day.ago)
 
-Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/family_guy.jpg', category: comedy, created_at: 10.day.ago)
+futurama = Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/futurama.jpg', category: scifi)
 
-Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/futurama.jpg', category: scifi)
+sout_park = Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg', category: comedy)
 
-Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg', category: comedy)
+#Reviews
+monk_review_1 = Review.create(rating: 5, review: "It's great. This review should be old and at the bottom", user: test_user, video: monk, created_at: 10.day.ago)
+
+monk_review_2 = Review.create(rating: 4, review: "It's pretty good. This review is new and should be at the top", user: test_user2, video: monk)
+
+family_guy_review_1 = Review.create(rating: 5, review: "It's great", user: test_user, video: family_guy)
+
+family_guy_review_2 = Review.create(rating: 4, review: "It's pretty good", user: test_user2, video: family_guy)
