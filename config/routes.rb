@@ -15,7 +15,7 @@ Myflix::Application.routes.draw do
     end
 
     member do
-      post '/review', to: 'videos#review'
+      post '/review', to: 'reviews#create'
     end
   end
   resources :categories, only: [:show]
