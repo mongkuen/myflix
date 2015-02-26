@@ -26,27 +26,25 @@ describe SessionsController do
       end
 
       context "User login invalid:" do
-        before do
-          @user = Fabricate(:user)
-        end
+        let(:user) { Fabricate(:user) }
 
         it "Should redirect to login path if user does not exist" do
-          post :create, email: @user.email + "bademail"
+          post :create, email: user.email + "bademail"
           expect(response).to redirect_to login_path
         end
 
         it "Should redirect to login path if user does not authenticate" do
-          post :create, email: @user.email, password: @user.password + "badpass"
+          post :create, email: user.email, password: user.password + "badpass"
           expect(response).to redirect_to login_path
         end
 
         it "Does not put user in session" do
-          post :create, email: @user.email
+          post :create, email: user.email
           expect(session[:user_id]).to be_nil
         end
 
         it "Sets error message" do
-          post :create, email: @user.email
+          post :create, email: user.email
           expect(flash[:danger]).not_to be_blank
         end
       end

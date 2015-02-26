@@ -21,7 +21,7 @@ class VideosController < ApplicationController
     @review.video = @video
 
     if @review.save
-      flash[:notice] = "Your review has been recorded"
+      flash[:success] = "Your review has been recorded"
       redirect_to video_path(@video)
     else
       render :show
