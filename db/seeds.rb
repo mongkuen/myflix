@@ -24,7 +24,7 @@ sout_park = Video.create(title: 'South Park', description: 'Kids from South Park
 #Reviews
 monk_review_1 = Review.create(rating: 5, review: "It's great. This review should be old and at the bottom", user: test_user, video: monk, created_at: 10.day.ago)
 monk_review_2 = Review.create(rating: 4, review: "It's pretty good. This review is new and should be at the top", user: test_user2, video: monk)
-family_guy_review_1 = Review.create(rating: 5, review: "It's great", user: test_user, video: family_guy)
+family_guy_review_1 = Review.create(rating: 3, review: "It's okay", user: test_user, video: family_guy)
 family_guy_review_2 = Review.create(rating: 4, review: "It's pretty good", user: test_user2, video: family_guy)
 
 #QueueItems
