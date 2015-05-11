@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   validates_presence_of :full_name, :email
   validates :email, uniqueness: true
   has_secure_password
-  has_many :reviews
+  has_many :reviews, -> { order("created_at DESC") }
   has_many :queue_items, -> { order(:position) }
 
   def queue_video(video)

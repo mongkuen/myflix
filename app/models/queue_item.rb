@@ -18,7 +18,6 @@ class QueueItem < ActiveRecord::Base
       review = Review.new(user: user, video: video, rating: new_rating)
       review.save(validate: false)
     end
-
   end
 
   def category_name

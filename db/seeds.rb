@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #Users
-test_user = User.create(email: "test@test.com", full_name: "Bob Test", password: "password")
+test_user = User.create(email: "mongkuen.sun@gmail.com", full_name: "Mong-Kuen Sun", password: "password")
 test_user2 = User.create(email: "test2@test.com", full_name: "Bill Test", password: "password")
 
 #Categories
