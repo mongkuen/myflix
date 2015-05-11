@@ -10,3 +10,11 @@ end
 def clear_session
   session[:user_id] = nil
 end
+
+def log_in(user=nil)
+  log_in_user = user || Fabricate(:user)
+  visit '/login'
+  fill_in "Email Address", with: log_in_user.email
+  fill_in "Password", with: log_in_user.password
+  click_on "Sign In"
+end

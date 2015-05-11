@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :reviews, -> { order("created_at DESC") }
   has_many :queue_items, -> { order(:position) }
+  has_many :followerships, foreign_key: "leader_id"
+  has_many :followers, -> { order("created_at DESC") }, through: :followerships
+  has_many :leaderships, class_name: "Followership", foreign_key: "follower_id"
+  has_many :leaders, -> { order("created_at") }, through: :leaderships
 
   def queue_video(video)
     QueueItem.create(video: video, user: self, position: new_queue_item_position) unless user_queued_video?(video)
@@ -22,4 +26,17 @@ class User < ActiveRecord::Base
       item.update_attributes(position: index + 1)
     end
   end
+
+  def followable?(leader)
+    self.not_yet_followed?(leader) && self.is_not_leader?(leader)
+  end
+
+  def not_yet_followed?(leader)
+    !self.leaders.include?(leader)
+  end
+
+  def is_not_leader?(leader)
+    self != leader ? true : false
+  end
+
 end
