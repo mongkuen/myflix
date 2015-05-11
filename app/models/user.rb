@@ -14,25 +14,25 @@ class User < ActiveRecord::Base
   end
 
   def new_queue_item_position
-    self.queue_items.count + 1
+    queue_items.count + 1
   end
 
   def user_queued_video?(video)
-    self.queue_items.map(&:video).include?(video)
+    queue_items.map(&:video).include?(video)
   end
 
   def normalize_queue_item_positions
-    self.queue_items.each_with_index do |item, index|
+    queue_items.each_with_index do |item, index|
       item.update_attributes(position: index + 1)
     end
   end
 
   def followable?(leader)
-    self.not_yet_followed?(leader) && self.is_not_leader?(leader)
+    not_yet_followed?(leader) && is_not_leader?(leader)
   end
 
   def not_yet_followed?(leader)
-    !self.leaders.include?(leader)
+    !leaders.include?(leader)
   end
 
   def is_not_leader?(leader)

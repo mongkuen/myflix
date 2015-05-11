@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :redirect_to_home, only: [:new, :create]
+  before_action :home_redirect_if_authenticated, only: [:new, :create]
   before_action :require_user, only: [:show]
 
   def new

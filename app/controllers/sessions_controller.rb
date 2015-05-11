@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :redirect_to_home, except: [:destroy]
+  before_action :home_redirect_if_authenticated, except: [:destroy]
 
   def new
   end
