@@ -38,17 +38,4 @@ describe User do
       expect(user.not_yet_followed?(user_2)).to be_falsey
     end
   end
-
-  describe "#is_not_leader?" do
-    it "returns true if leader is not self" do
-      user = Fabricate(:user)
-      user_2 = Fabricate(:user)
-      expect(user.is_not_leader?(user_2)).to be_truthy
-    end
-
-    it "returns false if leader is self" do
-      user = Fabricate(:user)
-      expect(user.is_not_leader?(user)).to be_falsey
-    end
-  end
 end

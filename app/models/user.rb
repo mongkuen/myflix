@@ -28,15 +28,15 @@ class User < ActiveRecord::Base
   end
 
   def followable?(leader)
-    not_yet_followed?(leader) && is_not_leader?(leader)
+    not_yet_followed?(leader) && self != leader
   end
 
   def not_yet_followed?(leader)
     !leaders.include?(leader)
   end
 
-  def is_not_leader?(leader)
-    self != leader ? true : false
+  def notify_user_create
+    AppMailer.notify_user_create(self).deliver
   end
 
 end
