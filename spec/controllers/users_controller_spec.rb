@@ -9,22 +9,15 @@ describe UsersController do
       end
     end
 
-    context "User logged in:" do
-      it "Redirects to home" do
-        user = Fabricate(:user)
-        session[:user_id] = user.id
-        get :new
-        expect(response).to redirect_to home_path
-      end
+    it_behaves_like "redirects if authenticated" do
+      let(:action) { get :new }
     end
   end
 
   describe "POST create:" do
     context "User not logged in:" do
       context "Input valid:" do
-        before do
-          post :create, user: Fabricate.attributes_for(:user)
-        end
+        before { post :create, user: Fabricate.attributes_for(:user) }
 
         it "Saves user" do
           expect(User.count).to eq(1)
@@ -36,6 +29,11 @@ describe UsersController do
 
         it "Redirects to root" do
           expect(response).to redirect_to root_path
+        end
+
+        it "sends email" do
+          expect(ActionMailer::Base.deliveries).not_to be_empty
+          clear_mailer
         end
       end
 
@@ -58,13 +56,8 @@ describe UsersController do
       end
     end
 
-    context "User logged in" do
-      it "redirects you to home" do
-        user = Fabricate(:user)
-        session[:user_id] = user.id
-        post :create
-        expect(response).to redirect_to home_path
-      end
+    it_behaves_like "redirects if authenticated" do
+      let(:action) { post :create }
     end
   end
 

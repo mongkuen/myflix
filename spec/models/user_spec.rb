@@ -38,4 +38,18 @@ describe User do
       expect(user.not_yet_followed?(user_2)).to be_falsey
     end
   end
+
+  describe "#notify_user_create" do
+    let(:user) { Fabricate(:user, full_name: "User Name") }
+    before { user.notify_user_create }
+    after { clear_mailer }
+
+    it "sends email to the correct email" do
+      expect(ActionMailer::Base.deliveries.last.to).to eq([user.email])
+    end
+
+    it "sends email with the correct body" do
+      expect(ActionMailer::Base.deliveries.last.body).to include("User Name")
+    end
+  end
 end
