@@ -39,4 +39,18 @@ class User < ActiveRecord::Base
     AppMailer.notify_user_create(self).deliver
   end
 
+  def save_token
+    self.token = SecureRandom.urlsafe_base64
+    self.save
+  end
+
+  def notify_password_reset
+    AppMailer.notify_password_reset(self).deliver
+  end
+
+  def update_password_and_token(password)
+    self.password = password
+    self.token = nil
+    self.save
+  end
 end

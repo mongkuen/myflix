@@ -52,4 +52,39 @@ describe User do
       expect(ActionMailer::Base.deliveries.last.body).to include("User Name")
     end
   end
+
+  describe "#save_token" do
+    let(:user) { Fabricate(:user) }
+    it "saves new token into user" do
+      user.save_token
+      expect(User.first.token).not_to be_nil
+    end
+  end
+
+  describe "#notify_password_reset" do
+    let(:user) { Fabricate(:user, token: "12345") }
+    before { user.notify_password_reset }
+    after { clear_mailer }
+
+    it "sends emails to the correct email" do
+      expect(ActionMailer::Base.deliveries.last.to).to eq([user.email])
+    end
+
+    it "sends email with the correct body" do
+      expect(ActionMailer::Base.deliveries.last.body).to include("12345")
+    end
+  end
+
+  describe "#update_password_and_token" do
+    let(:user) { Fabricate(:user, token: "12345") }
+    before { user.update_password_and_token("new_pass") }
+
+    it "saves new password" do
+      expect(User.first.authenticate("new_pass")).to be_truthy
+    end
+
+    it "clears token" do
+      expect(user.token).to be_nil
+    end
+  end
 end

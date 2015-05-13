@@ -25,4 +25,11 @@ Myflix::Application.routes.draw do
   resources :categories, only: [:show]
   resources :queue_items, only: [:create, :destroy]
   resources :followerships, only: [:create, :destroy]
+
+  get '/forgot_password', to: 'password_resets#new'
+  post '/forgot_password', to: 'password_resets#create'
+  get '/confirmation', to: 'password_resets#confirmation'
+  get '/reset_password/:id', to: 'password_resets#edit', as: 'reset_password'
+  post '/reset_password', to: 'password_resets#update'
+  get '/token_expired', to: 'password_resets#token_expired'
 end
