@@ -21,7 +21,7 @@ describe PasswordResetsController do
       end
 
       it "sends password reset token email" do
-        expect(ActionMailer::Base.deliveries).not_to be_empty
+        expect(ActionMailer::Base.deliveries).to be_present
         clear_mailer
       end
 
@@ -95,7 +95,7 @@ describe PasswordResetsController do
       end
 
       it "sets flash success" do
-        expect(flash[:success]).not_to be_empty
+        expect(flash[:success]).to be_present
       end
 
       it "redirects to login path" do

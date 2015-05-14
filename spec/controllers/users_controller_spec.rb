@@ -32,7 +32,7 @@ describe UsersController do
         end
 
         it "sends email" do
-          expect(ActionMailer::Base.deliveries).not_to be_empty
+          expect(ActionMailer::Base.deliveries).to be_present
           clear_mailer
         end
       end
