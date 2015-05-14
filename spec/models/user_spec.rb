@@ -39,16 +39,52 @@ describe User do
     end
   end
 
-  describe "#is_not_leader?" do
-    it "returns true if leader is not self" do
-      user = Fabricate(:user)
-      user_2 = Fabricate(:user)
-      expect(user.is_not_leader?(user_2)).to be_truthy
+  describe "#notify_user_create" do
+    let(:user) { Fabricate(:user, full_name: "User Name") }
+    before { user.notify_user_create }
+    after { clear_mailer }
+
+    it "sends email to the correct email" do
+      expect(ActionMailer::Base.deliveries.last.to).to eq([user.email])
     end
 
-    it "returns false if leader is self" do
-      user = Fabricate(:user)
-      expect(user.is_not_leader?(user)).to be_falsey
+    it "sends email with the correct body" do
+      expect(ActionMailer::Base.deliveries.last.body).to include("User Name")
+    end
+  end
+
+  describe "#save_token" do
+    let(:user) { Fabricate(:user) }
+    it "saves new token into user" do
+      user.save_token
+      expect(User.first.token).not_to be_nil
+    end
+  end
+
+  describe "#notify_password_reset" do
+    let(:user) { Fabricate(:user, token: "12345") }
+    before { user.notify_password_reset }
+    after { clear_mailer }
+
+    it "sends emails to the correct email" do
+      expect(ActionMailer::Base.deliveries.last.to).to eq([user.email])
+    end
+
+    it "sends email with the correct body" do
+      expect(ActionMailer::Base.deliveries.last.body).to include("12345")
+    end
+  end
+
+  describe "#update_password_and_token" do
+    let(:user) { Fabricate(:user, token: "12345") }
+    before { user.update_password_and_token("new_pass") }
+
+    it "saves new password" do
+      expect(User.first.authenticate("new_pass")).to be_truthy
+    end
+
+    it "clears token" do
+      expect(user.token).to be_nil
     end
   end
 end

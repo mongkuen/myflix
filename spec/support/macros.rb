@@ -18,3 +18,7 @@ def log_in(user=nil)
   fill_in "Password", with: log_in_user.password
   click_on "Sign In"
 end
+
+def clear_mailer
+  ActionMailer::Base.deliveries.clear
+end
