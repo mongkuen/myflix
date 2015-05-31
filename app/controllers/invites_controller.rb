@@ -10,7 +10,7 @@ class InvitesController < ApplicationController
     @invite.user = current_user
 
     if @invite.save
-      @invite.save_token
+      @invite.generate_token
       @invite.send_invite
       flash[:success] = "Your invitation was sent!"
       redirect_to invites_path

@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   def connect_with_invitors
     invites = Invite.where(email: self.email)
     if invites.exists?
-      invitor_ids = invites.map(&:user_id).uniq
+      invitor_ids = invites.uniq.pluck(:user_id)
       invitor_ids.each do |invitor_id|
         Followership.create(leader_id: invitor_id, follower: self)
         Followership.create(leader: self, follower_id: invitor_id)

@@ -86,8 +86,8 @@ describe User do
 
   describe "#connect_with_invitors" do
     context "invited" do
-      let!(:user) { Fabricate(:user) }
-      let!(:invitor) { Fabricate(:user) }
+      let(:user) { Fabricate(:user) }
+      let(:invitor) { Fabricate(:user) }
       let!(:invite) { Fabricate(:invite, user: invitor, email: user.email) }
 
       it "creates mutual followerships" do
@@ -101,7 +101,8 @@ describe User do
       it "creates one set of followerships from same invitor" do
         invite_2 = Fabricate(:invite, user: invitor, email: user.email)
         user.connect_with_invitors
-        expect(Followership.count).to eq(2)
+        expect(Followership.first.leader).to eq(invitor)
+        expect(Followership.last.follower).to eq(invitor)
       end
 
       it "creates multiple followerships from different invitors" do
@@ -109,6 +110,8 @@ describe User do
         invite_2 = Fabricate(:invite, user: invitor_2, email: user.email)
         user.connect_with_invitors
         expect(Followership.count).to eq(4)
+        expect(Followership.first.leader).to eq(invitor)
+        expect(Followership.last.follower).to eq(invitor_2)
       end
     end
 

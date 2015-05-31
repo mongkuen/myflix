@@ -17,7 +17,7 @@ end
 shared_examples "tokenable" do
   it "generates and saves token to an object" do
     model = object
-    model.save_token
+    model.generate_token
     expect(model.class.first.token).to be_present
   end
 end

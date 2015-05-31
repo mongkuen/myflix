@@ -14,7 +14,7 @@ feature "reset password" do
 end
 
 def visit_forgot_password
-  visit '/'
+  visit root_path
   click_on "Sign In"
   click_on "Forgot Password?"
 end
@@ -25,7 +25,7 @@ def fill_and_submit_reset
 end
 
 def expect_confirmation
-  expect(current_path).to eq "/confirmation"
+  expect(current_path).to eq(confirmation_path)
 end
 
 def click_email_reset_link

@@ -32,6 +32,8 @@ describe InvitesController do
         post :create, invite: invite
       end
 
+      after { clear_mailer }
+
       it "should redirect to invite" do
         expect(response).to redirect_to invites_path
       end
@@ -54,7 +56,6 @@ describe InvitesController do
 
       it "should send email" do
         expect(ActionMailer::Base.deliveries).to be_present
-        clear_mailer
       end
     end
 
