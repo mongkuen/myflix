@@ -2,10 +2,20 @@ require 'spec_helper'
 
 describe UsersController do
   describe "GET new:" do
-    context "User not logged in:" do
+    context "no invite token" do
       it "Sets @user variable" do
         get :new
         expect(assigns[:user]).to be_a(User)
+      end
+    end
+
+    context "invite token present" do
+      let!(:invite) { Fabricate(:invite, token: "1234") }
+      before { get :new, token: "1234" }
+
+      it "Sets @user with invite email and name" do
+        expect(assigns[:user].full_name).to eq(invite.name)
+        expect(assigns[:user].email).to eq(invite.email)
       end
     end
 
@@ -34,6 +44,16 @@ describe UsersController do
         it "sends email" do
           expect(ActionMailer::Base.deliveries).to be_present
           clear_mailer
+        end
+      end
+
+      context "User is invited" do
+        let(:invite) { Fabricate(:invite) }
+        let(:user) { Fabricate.attributes_for(:user, email: invite.email) }
+
+        it "creates two followerships" do
+          post :create, user: user
+          expect(Followership.count).to eq(2)
         end
       end
 

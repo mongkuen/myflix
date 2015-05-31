@@ -49,3 +49,8 @@ adam_follows_mong = Followership.create(leader: mong, follower: adam)
 
 bob_follows_mong = Followership.create(leader: mong, follower: bob)
 
+#Invites
+#Signing up with chris@chris.com should create only two mutual connections between chris and mong/adam
+mong_invites_chris = Invite.create(user: mong, name: "Chris Carrot", email: "chris@chris.com", message: "Check out MyFlix!", token: "1111")
+mong_invites_chris_again = Invite.create(user: mong, name: "Chris Carrot", email: "chris@chris.com", message: "Did you get my invite?", token: "2222")
+adam_invites_chris = Invite.create(user: adam, name: "Chris Carrot", email: "chris@chris.com", message: "Beep Boop", token: "3333")
