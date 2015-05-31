@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Tokenable
+
   validates_presence_of :full_name, :email
   validates :email, uniqueness: true
   has_secure_password
@@ -37,11 +39,6 @@ class User < ActiveRecord::Base
 
   def notify_user_create
     AppMailer.notify_user_create(self).deliver
-  end
-
-  def save_token
-    self.token = SecureRandom.urlsafe_base64
-    self.save
   end
 
   def notify_password_reset

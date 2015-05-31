@@ -53,12 +53,8 @@ describe User do
     end
   end
 
-  describe "#save_token" do
-    let(:user) { Fabricate(:user) }
-    it "saves new token into user" do
-      user.save_token
-      expect(User.first.token).not_to be_nil
-    end
+  it_behaves_like "tokenable" do
+    let(:object) { Fabricate(:user) }
   end
 
   describe "#notify_password_reset" do

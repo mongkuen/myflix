@@ -17,4 +17,8 @@ describe Invite do
       expect(ActionMailer::Base.deliveries.last.body).to include("Adam Apple")
     end
   end
+
+  it_behaves_like "tokenable" do
+    let(:object) { Fabricate(:invite) }
+  end
 end
