@@ -20,10 +20,10 @@ Myflix::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              'smtp.mandrillapp.com',
     port:                 587,
-    user_name:            ENV["GMAIL_USER"],
-    password:             ENV["GMAIL_PASS"],
+    user_name:            ENV["MANDRILL_USER"],
+    password:             ENV["MANDRILL_PASS"],
     authentication:       'plain',
     enable_starttls_auto: true  }
   config.action_mailer.default_url_options = { host: 'http://myflix2622.herokuapp.com' }

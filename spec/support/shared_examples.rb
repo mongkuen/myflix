@@ -13,3 +13,11 @@ shared_examples "redirects if authenticated" do
     expect(response).to redirect_to home_path
   end
 end
+
+shared_examples "tokenable" do
+  it "generates and saves token to an object" do
+    model = object
+    model.generate_token
+    expect(model.class.first.token).to be_present
+  end
+end

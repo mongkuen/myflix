@@ -6,7 +6,7 @@ class PasswordResetsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user
-      user.save_token
+      user.generate_token
       user.notify_password_reset
       redirect_to confirmation_path
     else

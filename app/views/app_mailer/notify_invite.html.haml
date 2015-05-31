@@ -1,0 +1,10 @@
+%html
+  %body
+    %p
+      ="Hello #{@invite.name}"
+    %p
+      ="You've been invited by #{@invite.user.full_name} to join MyFlix!"
+    %p
+      ="#{@invite.message}"
+    %p
+      = link_to "Sign up for Myflix", register_url(token: @invite.token)

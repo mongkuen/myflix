@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Tokenable
+
   validates_presence_of :full_name, :email
   validates :email, uniqueness: true
   has_secure_password
@@ -39,11 +41,6 @@ class User < ActiveRecord::Base
     AppMailer.notify_user_create(self).deliver
   end
 
-  def save_token
-    self.token = SecureRandom.urlsafe_base64
-    self.save
-  end
-
   def notify_password_reset
     AppMailer.notify_password_reset(self).deliver
   end
@@ -52,5 +49,16 @@ class User < ActiveRecord::Base
     self.password = password
     self.token = nil
     self.save
+  end
+
+  def connect_with_invitors
+    invites = Invite.where(email: self.email)
+    if invites.exists?
+      invitor_ids = invites.uniq.pluck(:user_id)
+      invitor_ids.each do |invitor_id|
+        Followership.create(leader_id: invitor_id, follower: self)
+        Followership.create(leader: self, follower_id: invitor_id)
+      end
+    end
   end
 end

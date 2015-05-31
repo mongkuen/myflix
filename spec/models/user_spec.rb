@@ -53,12 +53,8 @@ describe User do
     end
   end
 
-  describe "#save_token" do
-    let(:user) { Fabricate(:user) }
-    it "saves new token into user" do
-      user.save_token
-      expect(User.first.token).not_to be_nil
-    end
+  it_behaves_like "tokenable" do
+    let(:object) { Fabricate(:user) }
   end
 
   describe "#notify_password_reset" do
@@ -85,6 +81,47 @@ describe User do
 
     it "clears token" do
       expect(user.token).to be_nil
+    end
+  end
+
+  describe "#connect_with_invitors" do
+    context "invited" do
+      let(:user) { Fabricate(:user) }
+      let(:invitor) { Fabricate(:user) }
+      let!(:invite) { Fabricate(:invite, user: invitor, email: user.email) }
+
+      it "creates mutual followerships" do
+        user.connect_with_invitors
+        expect(Followership.first.leader).to eq(invitor)
+        expect(Followership.first.follower).to eq(user)
+        expect(Followership.last.leader).to eq(user)
+        expect(Followership.last.follower).to eq(invitor)
+      end
+
+      it "creates one set of followerships from same invitor" do
+        invite_2 = Fabricate(:invite, user: invitor, email: user.email)
+        user.connect_with_invitors
+        expect(Followership.first.leader).to eq(invitor)
+        expect(Followership.last.follower).to eq(invitor)
+      end
+
+      it "creates multiple followerships from different invitors" do
+        invitor_2 = Fabricate(:user)
+        invite_2 = Fabricate(:invite, user: invitor_2, email: user.email)
+        user.connect_with_invitors
+        expect(Followership.count).to eq(4)
+        expect(Followership.first.leader).to eq(invitor)
+        expect(Followership.last.follower).to eq(invitor_2)
+      end
+    end
+
+    context "not invited" do
+      let(:user) { Fabricate(:user) }
+
+      it "does not create any followerships" do
+        user.connect_with_invitors
+        expect(Followership.count).to eq(0)
+      end
     end
   end
 end

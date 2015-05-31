@@ -32,4 +32,7 @@ Myflix::Application.routes.draw do
   get '/reset_password/:id', to: 'password_resets#edit', as: 'reset_password'
   post '/reset_password', to: 'password_resets#update', as: 'post_reset_password'
   get '/token_expired', to: 'password_resets#token_expired'
+
+  get '/invite', to: 'invites#new'
+  post '/invite', to: 'invites#create', as: 'invites'
 end
