@@ -5,6 +5,6 @@ class Invite < ActiveRecord::Base
   validates_presence_of :email
 
   def send_invite
-    AppMailer.notify_invite(self).deliver
+    AppMailer.delay.notify_invite(self.id)
   end
 end

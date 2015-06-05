@@ -38,11 +38,11 @@ class User < ActiveRecord::Base
   end
 
   def notify_user_create
-    AppMailer.notify_user_create(self).deliver
+    AppMailer.delay.notify_user_create(self.id)
   end
 
   def notify_password_reset
-    AppMailer.notify_password_reset(self).deliver
+    AppMailer.delay.notify_password_reset(self.id)
   end
 
   def update_password_and_token(password)
