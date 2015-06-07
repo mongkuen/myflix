@@ -92,17 +92,16 @@ describe User do
 
       it "creates mutual followerships" do
         user.connect_with_invitors
-        expect(Followership.first.leader).to eq(invitor)
-        expect(Followership.first.follower).to eq(user)
-        expect(Followership.last.leader).to eq(user)
-        expect(Followership.last.follower).to eq(invitor)
+        expect(Followership.where(leader: user).first.follower).to eq(invitor)
+        expect(Followership.where(leader: invitor).first.follower).to eq(user)
       end
 
       it "creates one set of followerships from same invitor" do
         invite_2 = Fabricate(:invite, user: invitor, email: user.email)
         user.connect_with_invitors
-        expect(Followership.first.leader).to eq(invitor)
-        expect(Followership.last.follower).to eq(invitor)
+        expect(Followership.where(leader: user).first.follower).to eq(invitor)
+        expect(Followership.where(leader: invitor).first.follower).to eq(user)
+        expect(Followership.count).to eq 2
       end
 
       it "creates multiple followerships from different invitors" do
@@ -110,8 +109,10 @@ describe User do
         invite_2 = Fabricate(:invite, user: invitor_2, email: user.email)
         user.connect_with_invitors
         expect(Followership.count).to eq(4)
-        expect(Followership.first.leader).to eq(invitor)
-        expect(Followership.last.follower).to eq(invitor_2)
+        expect(Followership.where(leader: user, follower: invitor)).to be_present
+        expect(Followership.where(leader: invitor, follower: user)).to be_present
+        expect(Followership.where(leader: user, follower: invitor_2)).to be_present
+        expect(Followership.where(leader: invitor_2, follower: user)).to be_present
       end
     end
 
