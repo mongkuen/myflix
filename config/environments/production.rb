@@ -28,7 +28,7 @@ Myflix::Application.configure do
     password:             ENV["MANDRILL_PASS"],
     authentication:       'plain',
     enable_starttls_auto: true  }
-  config.action_mailer.default_url_options = { host: 'http://myflix2622.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'http://myflix1039.herokuapp.com' }
 
   Raven.configure do |config|
     config.dsn = ENV['SENTRY_DSN']
