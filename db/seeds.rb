@@ -17,7 +17,7 @@ futurama = Video.create(title: 'Futurama', description: 'Fry and his adventures.
 south_park = Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg', category: comedy)
 
 #Users
-mong = User.create(email: "mongkuen.sun@gmail.com", full_name: "Mong-Kuen Sun", password: "password")
+mong = User.create(email: "mongkuen.sun@gmail.com", full_name: "Mong-Kuen Sun", password: "password", role: User.roles[:admin])
 adam = User.create(email: "adam@adam.com", full_name: "Adam Apple", password: "password")
 bob = User.create(email: "bob@bob.com", full_name: "Bob Beet", password: "password")
 

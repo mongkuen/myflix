@@ -6,4 +6,7 @@ class Category < ActiveRecord::Base
     self.videos.limit(6)
   end
 
+  def self.selection
+    Category.all.map { |category| [category.name, category.id] }
+  end
 end

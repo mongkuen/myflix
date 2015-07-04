@@ -6,6 +6,7 @@ describe User do
   it { should validate_uniqueness_of(:email) }
   it { should have_many(:reviews).order("created_at DESC") }
   it { should have_many(:queue_items).order(:position) }
+  it { should define_enum_for(:role) }
 
   describe "#user_queued_video?" do
     it "returns true if user has queued video" do
@@ -123,6 +124,18 @@ describe User do
         user.connect_with_invitors
         expect(Followership.count).to eq(0)
       end
+    end
+  end
+
+  describe "#is_admin?" do
+    it "returns true if user is admin" do
+      admin = Fabricate(:admin)
+      expect(admin.is_admin?).to be_truthy
+    end
+
+    it "returns false if user is not admin" do
+      not_admin = Fabricate(:user)
+      expect(not_admin.is_admin?).to be_falsey
     end
   end
 end

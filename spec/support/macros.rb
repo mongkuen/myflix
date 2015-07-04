@@ -3,6 +3,11 @@ def set_current_user(user=nil)
   session[:user_id] = set_user.id
 end
 
+def set_admin(admin=nil)
+  set_admin = admin || Fabricate(:admin)
+  session[:user_id] = set_admin.id
+end
+
 def current_user
   User.find(session[:user_id])
 end
