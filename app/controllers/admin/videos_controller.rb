@@ -5,18 +5,18 @@ class Admin::VideosController < AdminsController
 
   def create
     @video = Video.new(video_params)
-    @video.large_cover_url = params[:file]
-    @video.large_cover_url = File.open("public/tmp")
 
     if @video.save
-      redirect_to root_path
+      flash[:success] = "Video saved successfully"
+      redirect_to new_admin_video_path
     else
+      flash[:danger] = "Video could not be saved"
       render :new
     end
   end
 
   private
   def video_params
-    params.require(:video).permit(:title, :description, :category_id, :large_cover_url)
+    params.require(:video).permit(:title, :description, :category_id, :large_cover, :large_cover_cache, :small_cover)
   end
 end

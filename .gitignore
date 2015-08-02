@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/public/uploads/tmp
 
 
 #Personal notes
@@ -24,3 +25,6 @@
 #Ignore Redis RDB
 *.rdb
 /dump.rdb
+
+# Ignore .DS Files
+*.DS_Store

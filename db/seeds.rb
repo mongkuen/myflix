@@ -11,10 +11,10 @@ scifi = Category.create(name: "Sci-fi")
 comedy = Category.create(name: "Comedy")
 
 #Videos
-monk = Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category: mystery)
-family_guy = Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/family_guy.jpg', category: comedy, created_at: 10.day.ago)
-futurama = Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/futurama.jpg', category: scifi)
-south_park = Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/south_park.jpg', category: comedy)
+monk = Video.create(title: 'Monk', description: 'Monk, the OCD detective.', small_cover: '/tmp/monk.jpg', large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"), category: mystery)
+family_guy = Video.create(title: 'Family Guy', description: 'Peter and his family.', small_cover: '/tmp/family_guy.jpg', large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"), category: comedy, created_at: 10.day.ago)
+futurama = Video.create(title: 'Futurama', description: 'Fry and his adventures.', small_cover: '/tmp/futurama.jpg', large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"), category: scifi)
+south_park = Video.create(title: 'South Park', description: 'Kids from South Park.', small_cover: '/tmp/south_park.jpg', large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"), category: comedy)
 
 #Users
 mong = User.create(email: "mongkuen.sun@gmail.com", full_name: "Mong-Kuen Sun", password: "password", role: User.roles[:admin])
