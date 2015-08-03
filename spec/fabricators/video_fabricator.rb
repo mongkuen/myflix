@@ -8,4 +8,10 @@ Fabricator(:video) do
       :filename => File.basename(File.new(Rails.root.join("spec/fabricators/fixtures/large_cover.jpg")))
     )
   }
+  small_cover {
+    ActionDispatch::Http::UploadedFile.new(
+      :tempfile => File.new(Rails.root.join("spec/fabricators/fixtures/small_cover.jpg")),
+      :filename => File.basename(File.new(Rails.root.join("spec/fabricators/fixtures/small_cover.jpg")))
+    )
+  }
 end
