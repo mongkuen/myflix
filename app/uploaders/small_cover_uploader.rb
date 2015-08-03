@@ -1,7 +1,7 @@
-class LargeCoverUploader < CarrierWave::Uploader::Base
+class SmallCoverUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  process resize_to_fill: [665, 375]
+  process resize_to_fill: [166, 236]
 
   version :thumb do
     process resize_to_fit: [200, 200]
