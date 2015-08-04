@@ -45,7 +45,7 @@ describe Admin::VideosController do
       end
 
       it "sets success flash" do
-        expect(flash[:success]).not_to be_empty
+        expect(flash[:success]).to be_present
       end
 
       it "redirects to admin new videos path" do
@@ -63,7 +63,7 @@ describe Admin::VideosController do
       end
 
       it "sets danger flash" do
-        expect(flash[:danger]).not_to be_empty
+        expect(flash[:danger]).to be_present
       end
 
       it "sets the @video variable" do

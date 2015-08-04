@@ -51,17 +51,4 @@ describe Category do
     # end
 
   end
-
-  describe "#selection" do
-    it "returns empty array if there are no categories" do
-      expect(Category.selection).to eq([])
-    end
-
-    it "returns all categories with their ids" do
-      category_1 = Fabricate(:category)
-      category_2 = Fabricate(:category)
-      expect(Category.selection).to eq([[category_1.name, category_1.id], [category_2.name, category_2.id]])
-    end
-  end
-
 end
