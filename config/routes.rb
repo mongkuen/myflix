@@ -5,14 +5,21 @@ Myflix::Application.routes.draw do
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  post '/logout', to: 'sessions#destroy'
+  get '/logout', to: 'sessions#destroy'
   get '/register', to: 'users#new'
+  get '/forgot_password', to: 'password_resets#new'
+  post '/forgot_password', to: 'password_resets#create'
+  get '/confirmation', to: 'password_resets#confirmation'
+  get '/reset_password/:id', to: 'password_resets#edit', as: 'reset_password'
+  post '/reset_password', to: 'password_resets#update', as: 'post_reset_password'
+  get '/token_expired', to: 'password_resets#token_expired'
+
   get '/my_queue', to: 'queue_items#index'
   post '/my_queue', to: 'queue_items#update'
+  get '/invite', to: 'invites#new'
+  post '/invite', to: 'invites#create', as: 'invites'
   get '/people', to: 'followerships#index'
-
   resources :users, only: [:create, :show]
-
   resources :videos, only: [:show] do
     collection do
       get '/search', to: 'videos#search'
@@ -26,13 +33,7 @@ Myflix::Application.routes.draw do
   resources :queue_items, only: [:create, :destroy]
   resources :followerships, only: [:create, :destroy]
 
-  get '/forgot_password', to: 'password_resets#new'
-  post '/forgot_password', to: 'password_resets#create'
-  get '/confirmation', to: 'password_resets#confirmation'
-  get '/reset_password/:id', to: 'password_resets#edit', as: 'reset_password'
-  post '/reset_password', to: 'password_resets#update', as: 'post_reset_password'
-  get '/token_expired', to: 'password_resets#token_expired'
-
-  get '/invite', to: 'invites#new'
-  post '/invite', to: 'invites#create', as: 'invites'
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+  end
 end

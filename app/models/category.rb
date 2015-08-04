@@ -5,5 +5,4 @@ class Category < ActiveRecord::Base
   def recent_videos
     self.videos.limit(6)
   end
-
 end

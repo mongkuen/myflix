@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :followers, -> { order("created_at DESC") }, through: :followerships
   has_many :leaderships, class_name: "Followership", foreign_key: "follower_id"
   has_many :leaders, -> { order("created_at") }, through: :leaderships
+  enum role: [:user, :admin]
 
   def queue_video(video)
     QueueItem.create(video: video, user: self, position: new_queue_item_position) unless user_queued_video?(video)
@@ -60,5 +61,9 @@ class User < ActiveRecord::Base
         Followership.create(leader: self, follower_id: invitor_id)
       end
     end
+  end
+
+  def is_admin?
+    role == 'admin' ? true : false
   end
 end
