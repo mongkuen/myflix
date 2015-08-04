@@ -24,6 +24,11 @@ def log_in(user=nil)
   click_on "Sign In"
 end
 
+def logout
+  visit logout_path
+end
+
 def clear_mailer
   ActionMailer::Base.deliveries.clear
 end
+

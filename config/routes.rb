@@ -5,7 +5,7 @@ Myflix::Application.routes.draw do
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  post '/logout', to: 'sessions#destroy'
+  get '/logout', to: 'sessions#destroy'
   get '/register', to: 'users#new'
   get '/forgot_password', to: 'password_resets#new'
   post '/forgot_password', to: 'password_resets#create'
