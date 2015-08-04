@@ -14,4 +14,5 @@ Fabricator(:video) do
       :filename => File.basename(File.new(Rails.root.join("spec/fabricators/fixtures/small_cover.jpg")))
     )
   }
+  video_url { Faker::Lorem.word }
 end

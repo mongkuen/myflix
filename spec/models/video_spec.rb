@@ -8,6 +8,7 @@ describe Video do
   it { should validate_presence_of(:category) }
   it { should validate_presence_of(:large_cover) }
   it { should validate_presence_of(:small_cover) }
+  it { should validate_presence_of(:video_url) }
 
   describe "search_by_title" do
     it "returns an empty array if there is no match" do

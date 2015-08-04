@@ -16,26 +16,30 @@ monk = Video.create(
   description: 'Monk, the OCD detective.',
   small_cover: File.open("#{Rails.root}/public/tmp/monk.jpg"),
   large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"),
-  category: mystery)
+  category: mystery,
+  video_url: "https://s3.amazonaws.com/myflix1039/videos/sample.mp4")
 family_guy = Video.create(
   title: 'Family Guy',
   description: 'Peter and his family.',
   small_cover: File.open("#{Rails.root}/public/tmp/family_guy.jpg"),
   large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"),
   category: comedy,
+  video_url: "https://s3.amazonaws.com/myflix1039/videos/sample.mp4",
   created_at: 10.day.ago)
 futurama = Video.create(
   title: 'Futurama',
   description: 'Fry and his adventures.',
   small_cover: File.open("#{Rails.root}/public/tmp/futurama.jpg"),
   large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"),
-  category: scifi)
+  category: scifi,
+  video_url: "https://s3.amazonaws.com/myflix1039/videos/sample.mp4")
 south_park = Video.create(
   title: 'South Park',
   description: 'Kids from South Park.',
   small_cover: File.open("#{Rails.root}/public/tmp/south_park.jpg"),
   large_cover: File.open("#{Rails.root}/public/tmp/monk_large.jpg"),
-  category: comedy)
+  category: comedy,
+  video_url: "https://s3.amazonaws.com/myflix1039/videos/sample.mp4")
 
 #Users
 mong = User.create(email: "mongkuen.sun@gmail.com", full_name: "Mong-Kuen Sun", password: "password", role: User.roles[:admin])

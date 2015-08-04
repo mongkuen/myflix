@@ -12,7 +12,7 @@
             \/ 5.0
         %p= @video.description
         .actions
-        %a.btn.btn-primary{href: ""} Watch Now
+        %a.btn.btn-primary{href: "#{@video.video_url}"} Watch Now
         -if !current_user.user_queued_video?(@video)
           = link_to "+ My Queue", queue_items_path(video_id: @video.id), method: 'post', class: "btn btn-default"
 
